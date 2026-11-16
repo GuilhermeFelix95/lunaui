@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { BottomSheet, Button, Checkbox, Input, LunaProvider, Modal, Select, Switch, Text, ToastHost, toast } from '..';
+import { BottomSheet, Button, Checkbox, Input, LunaProvider, Modal, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -199,5 +199,35 @@ describe('BottomSheet', () => {
   it('não renderiza quando invisível', async () => {
     await render(<BottomSheet visible={false} onClose={() => {}} title="Oculta" />);
     expect(screen.queryByText('Oculta')).toBeNull();
+  });
+});
+
+describe('Tabs', () => {
+  const setup = (onValueChange = jest.fn(), value = 'a') =>
+    render(
+      <Tabs value={value} onValueChange={onValueChange}>
+        <Tabs.Tab value="a" label="Hoje" />
+        <Tabs.Tab value="b" label="Semana" count={3} />
+        <Tabs.Tab value="c" label="Ano" disabled />
+        <Tabs.Panel value="a"><Text>Painel A</Text></Tabs.Panel>
+        <Tabs.Panel value="b"><Text>Painel B</Text></Tabs.Panel>
+      </Tabs>,
+    );
+
+  it('marca a aba ativa e mostra só o painel dela', async () => {
+    await setup();
+    expect(screen.getByRole('tab', { name: 'Hoje' })).toBeSelected();
+    expect(screen.getByRole('tab', { name: 'Semana, 3' })).not.toBeSelected();
+    expect(screen.getByText('Painel A')).toBeOnTheScreen();
+    expect(screen.queryByText('Painel B')).toBeNull();
+  });
+
+  it('chama onValueChange ao tocar e ignora aba desabilitada', async () => {
+    const onValueChange = jest.fn();
+    await setup(onValueChange);
+    await fireEvent.press(screen.getByRole('tab', { name: 'Semana, 3' }));
+    expect(onValueChange).toHaveBeenCalledWith('b');
+    await fireEvent.press(screen.getByRole('tab', { name: 'Ano' }));
+    expect(onValueChange).toHaveBeenCalledTimes(1);
   });
 });
