@@ -86,3 +86,4 @@ export function Progress({ value, ...rest }: HTMLAttributes<HTMLDivElement> & { 
 export * from './Tabs';
 export * from './Modal';
 export * from './Accordion';
+export * from './Form';
