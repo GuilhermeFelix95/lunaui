@@ -1,4 +1,4 @@
-# lunaui
+# lunakit
 
 Biblioteca de componentes para **React Native (Expo)** com uma cor-base configurável e identidade lunar: estilo fosco, cantos suaves e fases da lua como assinatura.
 
@@ -6,7 +6,7 @@ Biblioteca de componentes para **React Native (Expo)** com uma cor-base configur
 
 > Versão 0.1.0, em desenvolvimento ativo. Foco em mobile; web e desktop virão em etapas futuras.
 
-## Por que lunaui
+## Por que lunakit
 
 - **Uma cor, tudo derivado.** Você define a cor-base e a biblioteca calcula bordas, estados e a cor do texto com contraste adequado.
 - **Visual próprio.** Estilo fosco, sem brilhos nem degradês, com uma borda inferior que afunda ao toque.
@@ -18,7 +18,7 @@ Biblioteca de componentes para **React Native (Expo)** com uma cor-base configur
 ## Instalação
 
 ```sh
-npm install lunaui react-native-safe-area-context
+npm install lunakit react-native-safe-area-context
 ```
 
 Testada com React 19 e React Native 0.88 (Expo 58).
@@ -28,7 +28,7 @@ Testada com React 19 e React Native 0.88 (Expo 58).
 Envolva o app com o `LunaProvider` e escolha a cor-base:
 
 ```tsx
-import { Button, LunaProvider, createTheme } from 'lunaui';
+import { Button, LunaProvider, createTheme } from 'lunakit';
 
 export default function App() {
   return (
@@ -45,7 +45,7 @@ A cor não é fixa: mude no tema inteiro ou só em um componente com a prop `col
 ### Mais exemplos
 
 ```tsx
-import { Tabs, List, Switch, toast, ToastHost } from 'lunaui';
+import { Tabs, List, Switch, toast, ToastHost } from 'lunakit';
 
 // Abas com painéis
 <Tabs value={tab} onValueChange={setTab} variant="pill">

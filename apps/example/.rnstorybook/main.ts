@@ -4,7 +4,7 @@ const main: StorybookConfig = {
   stories: [
     {
       directory: '../../../packages/lunaui/src',
-      titlePrefix: 'lunaui',
+      titlePrefix: 'lunakit',
       files: '**/*.stories.?(ts|tsx|js|jsx)',
     },
   ],

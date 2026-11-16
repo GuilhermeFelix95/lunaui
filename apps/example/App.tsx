@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text as RNText, View } from 'react-native';
 import { useState } from 'react';
-import { Avatar, AvatarGroup, Badge, Button, Card, Checkbox, Input, LunaProvider, Spinner, Switch, Text, createTheme } from 'lunaui';
+import { Avatar, AvatarGroup, Badge, Button, Card, Checkbox, Input, LunaProvider, Spinner, Switch, Text, createTheme } from 'lunakit';
 
 export default function App() {
   const [items, setItems] = useState([true, false]);

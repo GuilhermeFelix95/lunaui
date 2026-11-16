@@ -1,6 +1,6 @@
 import type { Preview } from '@storybook/react-native';
 import { View } from 'react-native';
-import { LunaProvider, createTheme } from 'lunaui';
+import { LunaProvider, createTheme } from 'lunakit';
 
 const preview: Preview = {
   decorators: [
