@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { BottomSheet, Button, Checkbox, Header, Input, List, LunaProvider, Modal, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
+import { BottomSheet, Button, Checkbox, Header, Input, List, LunaProvider, Modal, Navigation, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -272,5 +272,26 @@ describe('Header', () => {
     await fireEvent.press(screen.getByRole('button', { name: 'Avisos, 3 novos' }));
     expect(voltar).toHaveBeenCalledTimes(1);
     expect(abrir).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('Navigation', () => {
+  const items = [
+    { value: 'a', label: 'Início', icon: <Text>i</Text> },
+    { value: 'b', label: 'Avisos', icon: <Text>b</Text>, badge: 3 },
+  ];
+
+  it('marca o item ativo e anuncia o contador', async () => {
+    await render(<Navigation items={items} value="a" onValueChange={() => {}} />);
+    expect(screen.getByRole('tab', { name: 'Início' })).toBeSelected();
+    expect(screen.getByRole('tab', { name: 'Avisos, 3 novos' })).not.toBeSelected();
+  });
+
+  it('troca de item ao tocar e mantém o rótulo acessível quando escondido', async () => {
+    const onValueChange = jest.fn();
+    await render(<Navigation items={items} value="a" onValueChange={onValueChange} activeLabelOnly />);
+    expect(screen.queryByText('Avisos')).toBeNull();
+    await fireEvent.press(screen.getByRole('tab', { name: 'Avisos, 3 novos' }));
+    expect(onValueChange).toHaveBeenCalledWith('b');
   });
 });
