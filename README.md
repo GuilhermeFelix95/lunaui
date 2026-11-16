@@ -2,7 +2,7 @@
 
 Biblioteca de componentes para React Native (Expo), com tema de cor único e identidade lunar. Web e desktop virão em etapas futuras.
 
-> Em desenvolvimento: ainda não publicada no npm.
+> Versão 0.1.0. Instalação: `npm install lunaui react-native-safe-area-context`.
 
 ## Componentes
 

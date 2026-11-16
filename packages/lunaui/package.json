@@ -1,6 +1,24 @@
 {
   "name": "lunaui",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "Biblioteca de componentes para React Native (Expo) com tema de cor único e identidade lunar.",
+  "keywords": [
+    "react-native",
+    "expo",
+    "ui",
+    "components",
+    "design-system",
+    "typescript"
+  ],
+  "homepage": "https://github.com/GuilhermeFelix95/lunaui#readme",
+  "bugs": {
+    "url": "https://github.com/GuilhermeFelix95/lunaui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeFelix95/lunaui.git",
+    "directory": "packages/lunaui"
+  },
   "license": "MIT",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -30,9 +48,11 @@
   "jest": {
     "preset": "jest-expo"
   },
-  "peerDependenciesMeta": {
-    "react-native-safe-area-context": {
-      "optional": "true"
-    }
-  }
+  "files": [
+    "src",
+    "!src/**/__tests__",
+    "!src/**/stories",
+    "README.md",
+    "LICENSE"
+  ]
 }
