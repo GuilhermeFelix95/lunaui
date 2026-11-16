@@ -32,6 +32,6 @@ export function deriveColor(hex: string): DerivedColor {
     base: toHex(c),
     dark: toHex(mix(c, [0, 0, 0], 0.28)),
     soft: `rgba(${c.map(Math.round).join(',')},0.15)`,
-    on: luminance(c) > 0.45 ? '#17142b' : '#ffffff',
+    on: luminance(c) > 0.3 ? '#17142b' : '#ffffff',
   };
 }
