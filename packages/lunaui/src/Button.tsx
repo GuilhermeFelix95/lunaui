@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Animated, Easing, Pressable, StyleSheet, Text, View, type LayoutChangeEvent } from 'react-native';
 import { deriveColor } from './color';
+import { MoonDisc } from './Spinner';
 import { useTheme } from './theme';
 
 export type ButtonProps = {
@@ -21,24 +22,6 @@ const SIZES = {
 } as const;
 const EDGE = 3;
 const MOON = 18;
-
-function MoonSpinner({ color, shade }: { color: string; shade: string }) {
-  const x = useRef(new Animated.Value(-MOON)).current;
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.timing(x, { toValue: MOON, duration: 1600, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [x]);
-  return (
-    <View style={{ width: MOON, height: MOON, borderRadius: MOON / 2, backgroundColor: color, overflow: 'hidden' }}>
-      <Animated.View
-        style={{ width: MOON, height: MOON, borderRadius: MOON / 2, backgroundColor: shade, transform: [{ translateX: x }] }}
-      />
-    </View>
-  );
-}
 
 export function Button({
   children,
@@ -99,7 +82,7 @@ export function Button({
             },
           ]}
         >
-          {loading && <MoonSpinner color={fg} shade={edge ? c.dark : c.soft} />}
+          {loading && <MoonDisc size={MOON} color={fg} shade={edge ? c.dark : c.soft} />}
           <Text style={{ color: fg, fontSize: s.font, fontWeight: '600' }}>{children}</Text>
           {!disabled && (
             <Animated.View
