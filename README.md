@@ -147,6 +147,10 @@ As imagens abaixo são **prévias do design** feitas a partir dos mockups de ref
 </tr>
 </table>
 
+## Web
+
+Os mesmos componentes existem para a web em `@lunakit/css`, `@lunakit/react` e `@lunakit/vue`. Veja [docs/web.md](docs/web.md).
+
 ## Estado do projeto
 
 - Tipagem completa em TypeScript e testes com Jest e Testing Library.
