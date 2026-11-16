@@ -6,7 +6,7 @@ Biblioteca de componentes para React Native (Expo), com tema de cor único e ide
 
 ## Componentes
 
-Button, Input, Switch, Checkbox, Card, Badge, Avatar, Spinner e Text.
+Button, Input, Switch, Checkbox, Card, Badge, Avatar, Spinner, Text e Modal.
 
 ## Uso
 

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react-native';
-import { Button, Checkbox, Input, LunaProvider, Switch, Text } from '..';
+import { Button, Checkbox, Input, LunaProvider, Modal, Switch, Text } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -64,5 +64,40 @@ describe('Text', () => {
       </LunaProvider>,
     );
     expect(screen.getByRole('header', { name: 'Calendário lunar' })).toBeOnTheScreen();
+  });
+});
+
+describe('Modal', () => {
+  it('mostra título e corpo e dispara as ações', async () => {
+    const onClose = jest.fn();
+    const onConfirm = jest.fn();
+    await render(
+      <Modal
+        visible
+        onClose={onClose}
+        title="Salvar alterações?"
+        actions={[{ label: 'Salvar', onPress: onConfirm }]}
+      >
+        Você editou 3 eventos.
+      </Modal>,
+    );
+    expect(screen.getByRole('header', { name: 'Salvar alterações?' })).toBeOnTheScreen();
+    expect(screen.getByText('Você editou 3 eventos.')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Salvar' }));
+    expect(onConfirm).toHaveBeenCalledTimes(1);
+  });
+
+  it('fecha pelo X e não oferece fechar quando dismissable=false', async () => {
+    const onClose = jest.fn();
+    const { rerender } = await render(<Modal visible onClose={onClose} title="Aviso" />);
+    await fireEvent.press(screen.getAllByRole('button', { name: 'Fechar' })[0]!);
+    expect(onClose).toHaveBeenCalledTimes(1);
+    await rerender(<Modal visible onClose={onClose} title="Aviso" dismissable={false} />);
+    expect(screen.queryByRole('button', { name: 'Fechar' })).toBeNull();
+  });
+
+  it('não renderiza o conteúdo quando invisível', async () => {
+    await render(<Modal visible={false} onClose={() => {}} title="Oculto" />);
+    expect(screen.queryByText('Oculto')).toBeNull();
   });
 });

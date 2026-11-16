@@ -17,6 +17,7 @@ export type LunaTheme = {
   online: string;
   away: string;
   offline: string;
+  scrim: string;
   boxLine: string;
   cardBg: string;
   cardLine: string;
@@ -60,6 +61,7 @@ export function useTheme(): LunaTheme {
     online: dark ? '#3ddc9d' : '#12a373',
     away: dark ? '#ffb23d' : '#d98a06',
     offline: dark ? '#8f8bb0' : '#7d7a99',
+    scrim: dark ? 'rgba(4,3,12,0.7)' : 'rgba(23,20,43,0.5)',
     boxLine: dark ? '#4a4580' : '#bdb8d8',
     trackOff: dark ? '#2c2850' : '#d8d4ec',
     trackOffEdge: dark ? '#1d1a3a' : '#bdb8d8',
