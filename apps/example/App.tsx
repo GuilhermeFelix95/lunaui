@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text as RNText, View } from 'react-native';
 import { useState } from 'react';
-import { Avatar, AvatarGroup, Badge, Button, Card, Checkbox, Input, LunaProvider, Spinner, Switch, createTheme } from 'lunaui';
+import { Avatar, AvatarGroup, Badge, Button, Card, Checkbox, Input, LunaProvider, Spinner, Switch, Text, createTheme } from 'lunaui';
 
 export default function App() {
   const [items, setItems] = useState([true, false]);
@@ -40,16 +40,16 @@ export default function App() {
           <Checkbox label="Desabilitado" checked disabled onCheckedChange={() => {}} />
         </View>
         <Card>
-          <Text style={styles.title}>Fases da lua</Text>
-          <Text>Do novilúnio ao plenilúnio em 29,5 dias.</Text>
+          <Text variant="heading">Fases da lua</Text>
+          <Text tone="muted">Do novilúnio ao plenilúnio em 29,5 dias.</Text>
         </Card>
         <Card variant="soft" moon>
-          <Text style={styles.title}>Maré de abril</Text>
-          <Text>Sizígia: a maré mais alta do mês.</Text>
+          <Text variant="heading">Maré de abril</Text>
+          <Text>Sizígia: a <Text highlight>maré mais alta</Text> do mês.</Text>
         </Card>
         <Card variant="solid" moon onPress={() => {}}>
-          <Text style={[styles.title, { color: '#fff' }]}>Teste 14 dias</Text>
-          <Text style={{ color: '#fff' }}>Toque para abrir.</Text>
+          <RNText style={[styles.title, { color: '#fff' }]}>Teste 14 dias</RNText>
+          <RNText style={{ color: '#fff' }}>Toque para abrir.</RNText>
         </Card>
         <View style={styles.row}>
           <Badge variant="solid">Novo</Badge>

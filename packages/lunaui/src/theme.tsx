@@ -3,6 +3,8 @@ import { useColorScheme } from 'react-native';
 
 export type LunaTheme = {
   color: string;
+  /** Família de fonte opcional; por padrão usa a fonte do sistema. */
+  fontFamily?: string;
   disabledBg: string;
   disabledFg: string;
   focus: string;
@@ -25,7 +27,7 @@ export type LunaTheme = {
   radius: { sm: number; md: number; lg: number };
 };
 
-type ThemeInput = Pick<LunaTheme, 'color'>;
+type ThemeInput = Pick<LunaTheme, 'color' | 'fontFamily'>;
 
 export function createTheme(overrides: Partial<ThemeInput> = {}): ThemeInput {
   return { color: '#7c6cf0', ...overrides };
@@ -38,10 +40,11 @@ export function LunaProvider({ theme, children }: { theme?: ThemeInput; children
 }
 
 export function useTheme(): LunaTheme {
-  const { color } = useContext(ThemeContext);
+  const { color, fontFamily } = useContext(ThemeContext);
   const dark = useColorScheme() === 'dark';
   return {
     color,
+    fontFamily,
     disabledBg: dark ? '#201e3a' : '#e6e4f0',
     disabledFg: dark ? '#6c688f' : '#9b97b5',
     focus: dark ? '#74b0ff' : '#1c7ed6',
