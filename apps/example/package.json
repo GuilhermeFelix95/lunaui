@@ -11,7 +11,7 @@
     "cross-env": "^10.1.0",
     "expo": "~58.0.25",
     "expo-status-bar": "~58.0.5",
-    "lunaui": "workspace:*",
+    "lunakit": "workspace:*",
     "react": "19.3.0",
     "react-dom": "^19.3.1",
     "react-native": "0.88.1",

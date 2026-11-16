@@ -199,7 +199,7 @@ importers:
       expo-status-bar:
         specifier: ~58.0.5
         version: 58.0.5(de5468e93f64ff4245b90b8a01d5129a)
-      lunaui:
+      lunakit:
         specifier: workspace:*
         version: link:../../packages/lunaui
       react:
