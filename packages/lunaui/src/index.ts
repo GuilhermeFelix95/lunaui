@@ -8,4 +8,6 @@ export { Avatar, AvatarGroup, type AvatarProps, type AvatarGroupProps } from './
 export { Spinner, type SpinnerProps } from './Spinner';
 export { Text, type TextProps } from './Text';
 export { Modal, type ModalProps, type ModalAction } from './Modal';
+export { ToastHost, type ToastHostProps } from './Toast';
+export { toast, useToast, type ToastOptions, type ToastTone } from './toastStore';
 export { LunaProvider, createTheme, useTheme, type LunaTheme } from './theme';

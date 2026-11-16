@@ -10,7 +10,8 @@
   },
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-safe-area-context": "*"
   },
   "devDependencies": {
     "@storybook/react-native": "^10.7.1",
@@ -22,10 +23,16 @@
     "jest-expo": "^58.0.14",
     "react": "19.3.0",
     "react-native": "0.88.1",
+    "react-native-safe-area-context": "~5.11.1",
     "react-test-renderer": "^19.3.1",
     "typescript": "~5.9.2"
   },
   "jest": {
     "preset": "jest-expo"
+  },
+  "peerDependenciesMeta": {
+    "react-native-safe-area-context": {
+      "optional": "true"
+    }
   }
 }

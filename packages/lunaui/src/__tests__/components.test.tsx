@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react-native';
-import { Button, Checkbox, Input, LunaProvider, Modal, Switch, Text } from '..';
+import { act, fireEvent, render, screen } from '@testing-library/react-native';
+import { Button, Checkbox, Input, LunaProvider, Modal, Switch, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -99,5 +99,47 @@ describe('Modal', () => {
   it('não renderiza o conteúdo quando invisível', async () => {
     await render(<Modal visible={false} onClose={() => {}} title="Oculto" />);
     expect(screen.queryByText('Oculto')).toBeNull();
+  });
+});
+
+describe('Toast', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+    toast.clear();
+  });
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
+  it('mostra o toast e remove sozinho depois da duração', async () => {
+    await render(<ToastHost />);
+    await act(async () => {
+      toast.show({ title: 'Evento salvo', duration: 1000 });
+    });
+    expect(screen.getByText('Evento salvo')).toBeOnTheScreen();
+    await act(async () => {
+      jest.advanceTimersByTime(1000);
+      jest.advanceTimersByTime(400);
+    });
+    expect(screen.queryByText('Evento salvo')).toBeNull();
+  });
+
+  it('chama a ação e dispensa o toast', async () => {
+    const undo = jest.fn();
+    await render(<ToastHost />);
+    await act(async () => {
+      toast.show({ title: 'Evento removido', action: { label: 'Desfazer', onPress: undo } });
+    });
+    await fireEvent.press(screen.getByRole('button', { name: 'Desfazer' }));
+    expect(undo).toHaveBeenCalledTimes(1);
+  });
+
+  it('mostra no máximo 3 por vez, os outros esperam', async () => {
+    await render(<ToastHost />);
+    await act(async () => {
+      ['a', 'b', 'c', 'd'].forEach((t) => toast.show({ title: t }));
+    });
+    expect(screen.queryByText('d')).toBeNull();
+    expect(screen.getByText('a')).toBeOnTheScreen();
   });
 });
