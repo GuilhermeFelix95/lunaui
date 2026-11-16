@@ -1,0 +1,18 @@
+{
+  "name": "@lunakit/css",
+  "version": "0.1.0",
+  "description": "Estilos do lunakit para a web, sem JavaScript: funciona em qualquer framework.",
+  "license": "MIT",
+  "style": "src/lunakit.css",
+  "main": "src/lunakit.css",
+  "exports": {
+    ".": "./src/lunakit.css",
+    "./lunakit.css": "./src/lunakit.css"
+  },
+  "files": ["src", "README.md", "LICENSE"],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeFelix95/lunaui.git",
+    "directory": "packages/css"
+  }
+}
