@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>lunakit css</title>
+<link rel="stylesheet" href="src/lunakit.css">
+<style>
+  body { margin: 0; padding: 24px 16px 60px; background: #f4f2fb; font-family: var(--lk-font); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme='light']) body { background: #0a0818; } }
+  main { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; }
+  section { display: flex; flex-direction: column; gap: 10px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="lk-text" data-variant="title">lunakit</h1>
+
+  <section><p class="lk-text" data-variant="overline">Button</p>
+    <div class="row">
+      <button class="lk-button">Primário</button>
+      <button class="lk-button" data-variant="soft">Suave</button>
+      <button class="lk-button" data-variant="outline">Contorno</button>
+      <button class="lk-button" data-variant="ghost">Fantasma</button>
+      <button class="lk-button" disabled>Desativado</button>
+      <button class="lk-button" aria-busy="true">Carregando</button>
+    </div>
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Input e Select</p>
+    <div class="lk-field"><label class="lk-label" for="n">Nome</label><input id="n" class="lk-input" placeholder="Seu nome"></div>
+    <div class="lk-field"><input class="lk-input" aria-invalid="true" value="errado"><p class="lk-helper" data-error>Campo inválido</p></div>
+    <select class="lk-select"><option>Lua cheia</option><option>Lua nova</option></select>
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Switch, Checkbox, Radio</p>
+    <div class="row">
+      <input type="checkbox" class="lk-switch" checked aria-label="a"><input type="checkbox" class="lk-switch" aria-label="b">
+      <input type="checkbox" class="lk-checkbox" checked aria-label="c"><input type="checkbox" class="lk-checkbox" aria-label="d">
+    </div>
+    <div class="lk-radio-group" data-variant="card" role="radiogroup">
+      <label class="lk-choice"><input type="radio" name="r" class="lk-radio" checked>Mensal</label>
+      <label class="lk-choice"><input type="radio" name="r" class="lk-radio">Anual</label>
+    </div>
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Card, Badge, Avatar, Spinner</p>
+    <div class="lk-card" data-moon><b>Título</b><span class="lk-text" data-tone="muted">Conteúdo do cartão</span></div>
+    <div class="row">
+      <span class="lk-badge">Novo</span><span class="lk-badge" data-variant="soft"><i class="lk-moon" data-phase="half"></i>Suave</span>
+      <span class="lk-badge" data-variant="outline">Contorno</span><span class="lk-counter">3</span>
+      <span class="lk-avatar">LK</span><span class="lk-avatar" data-variant="soft">AB<i class="lk-moon" data-status="online" data-phase="full"></i></span>
+      <span class="lk-spinner"></span>
+    </div>
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Progress, Slider, Rating, Skeleton</p>
+    <div class="lk-progress" style="--lk-value:60%" role="progressbar" aria-valuenow="60"></div>
+    <input type="range" class="lk-slider" value="40" style="--lk-p:.4">
+    <div class="lk-rating"><span class="lk-rating-moon" style="--lk-f:1"></span><span class="lk-rating-moon" style="--lk-f:1"></span><span class="lk-rating-moon" style="--lk-f:.5"></span><span class="lk-rating-moon"></span></div>
+    <span class="lk-skeleton"></span>
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Chip, Segmented, Tabs, Divider</p>
+    <div class="row"><button class="lk-chip" aria-pressed="true">Ativo</button><button class="lk-chip">Inativo</button></div>
+    <div class="lk-segmented" role="radiogroup"><button role="radio" aria-checked="true">Dia</button><button role="radio" aria-checked="false">Semana</button></div>
+    <div class="lk-tabs" data-variant="line" role="tablist"><button role="tab" aria-selected="true">Um</button><button role="tab">Dois</button></div>
+    <hr class="lk-divider">
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Accordion, List, Alert</p>
+    <div class="lk-accordion"><details open><summary>Pergunta</summary><p>Resposta.</p></details><details><summary>Outra</summary><p>Mais.</p></details></div>
+    <ul class="lk-list"><li><a class="lk-list-item" href="#" data-chevron><span class="lk-avatar" data-size="sm">A</span><span class="lk-list-item-text"><span class="lk-list-item-title">Item</span><span class="lk-list-item-subtitle">Detalhe</span></span></a></li></ul>
+    <div class="lk-alert" data-tone="success" role="status"><i class="lk-moon"></i><div class="lk-alert-body"><b>Pronto</b><p>Tudo certo.</p></div></div>
+  </section>
+
+  <section><p class="lk-text" data-variant="overline">Modal e Navigation</p>
+    <button class="lk-button" onclick="document.getElementById('m').showModal()">Abrir modal</button>
+    <dialog id="m" class="lk-modal"><h2>Confirmar</h2><p>Tem certeza?</p><div class="lk-modal-actions"><form method="dialog"><button class="lk-button" data-variant="ghost">Cancelar</button> <button class="lk-button">Ok</button></form></div></dialog>
+    <nav class="lk-nav"><a class="lk-nav-item" href="#" aria-current="page"><span class="lk-nav-item-icon">●</span><span class="lk-nav-item-label">Início</span></a><a class="lk-nav-item" href="#"><span class="lk-nav-item-icon">○</span><span class="lk-nav-item-label">Busca</span></a></nav>
+  </section>
+</main>
+</body>
+</html>
