@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { Button, Checkbox, Input, LunaProvider, Modal, Select, Switch, Text, ToastHost, toast } from '..';
+import { BottomSheet, Button, Checkbox, Input, LunaProvider, Modal, Select, Switch, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -175,5 +175,29 @@ describe('Select', () => {
     await fireEvent.press(screen.getByRole('combobox', { name: 'Fases' }));
     await fireEvent.press(screen.getByRole('checkbox', { name: 'Lua nova' }));
     expect(onValueChange).toHaveBeenCalledWith(['b']);
+  });
+});
+
+describe('BottomSheet', () => {
+  it('mostra título e conteúdo e expõe o controle de altura', async () => {
+    await render(
+      <BottomSheet visible onClose={() => {}} title="Próximas luas" snapPoints={['40%', '90%']}>
+        <Text>Lua cheia</Text>
+      </BottomSheet>,
+    );
+    expect(screen.getByRole('header', { name: 'Próximas luas' })).toBeOnTheScreen();
+    expect(screen.getByText('Lua cheia')).toBeOnTheScreen();
+    expect(screen.getByRole('adjustable', { name: 'Ajustar altura' })).toBeOnTheScreen();
+  });
+
+  it('não oferece fechar pelo fundo quando dismissable=false', async () => {
+    await render(<BottomSheet visible onClose={() => {}} title="Aviso" dismissable={false} />);
+    // o fundo começa transparente (animação de entrada), então é "oculto" para o Testing Library
+    expect(screen.getByRole('button', { name: 'Fechar', hidden: true })).toBeDisabled();
+  });
+
+  it('não renderiza quando invisível', async () => {
+    await render(<BottomSheet visible={false} onClose={() => {}} title="Oculta" />);
+    expect(screen.queryByText('Oculta')).toBeNull();
   });
 });
