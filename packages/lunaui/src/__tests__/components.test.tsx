@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { BottomSheet, Button, Checkbox, Input, LunaProvider, Modal, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
+import { BottomSheet, Button, Checkbox, Input, List, LunaProvider, Modal, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -229,5 +229,33 @@ describe('Tabs', () => {
     expect(onValueChange).toHaveBeenCalledWith('b');
     await fireEvent.press(screen.getByRole('tab', { name: 'Ano' }));
     expect(onValueChange).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('List', () => {
+  it('toca em item e ignora item desabilitado', async () => {
+    const abrir = jest.fn();
+    const bloqueado = jest.fn();
+    await render(
+      <List title="Contatos">
+        <List.Item title="Marina" subtitle="Amanhã" onPress={abrir} />
+        <List.Item title="Sync" onPress={bloqueado} disabled />
+      </List>,
+    );
+    expect(screen.getByText('Contatos')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Marina, Amanhã' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Sync' }));
+    expect(abrir).toHaveBeenCalledTimes(1);
+    expect(bloqueado).not.toHaveBeenCalled();
+  });
+
+  it('mostra o estado vazio com a ação', async () => {
+    await render(
+      <List>
+        <List.Empty title="Nada ainda" description="Crie um" action={<Button onPress={() => {}}>Criar</Button>} />
+      </List>,
+    );
+    expect(screen.getByText('Nada ainda')).toBeOnTheScreen();
+    expect(screen.getByRole('button', { name: 'Criar' })).toBeOnTheScreen();
   });
 });

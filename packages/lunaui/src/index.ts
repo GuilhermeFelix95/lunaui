@@ -12,5 +12,6 @@ export { ToastHost, type ToastHostProps } from './Toast';
 export { toast, useToast, type ToastOptions, type ToastTone } from './toastStore';
 export { Select, type SelectProps, type SelectOption } from './Select';
 export { BottomSheet, type BottomSheetProps } from './BottomSheet';
+export { List, type ListProps, type ListItemProps, type ListEmptyProps } from './List';
 export { Tabs, type TabsProps, type TabProps, type TabsPanelProps } from './Tabs';
 export { LunaProvider, createTheme, useTheme, type LunaTheme } from './theme';
