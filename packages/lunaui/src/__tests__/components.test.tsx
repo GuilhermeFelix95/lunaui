@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { BottomSheet, Button, Checkbox, Input, List, LunaProvider, Modal, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
+import { BottomSheet, Button, Checkbox, Header, Input, List, LunaProvider, Modal, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -257,5 +257,20 @@ describe('List', () => {
     );
     expect(screen.getByText('Nada ainda')).toBeOnTheScreen();
     expect(screen.getByRole('button', { name: 'Criar' })).toBeOnTheScreen();
+  });
+});
+
+describe('Header', () => {
+  it('mostra título, voltar e ações com badge', async () => {
+    const voltar = jest.fn();
+    const abrir = jest.fn();
+    await render(
+      <Header title="Calendário" onBack={voltar} actions={[{ icon: <Text>S</Text>, label: 'Avisos', onPress: abrir, badge: 3 }]} />,
+    );
+    expect(screen.getByRole('header', { name: 'Calendário' })).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Voltar' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Avisos, 3 novos' }));
+    expect(voltar).toHaveBeenCalledTimes(1);
+    expect(abrir).toHaveBeenCalledTimes(1);
   });
 });
