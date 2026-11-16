@@ -4,4 +4,5 @@ export { Switch, type SwitchProps } from './Switch';
 export { Checkbox, type CheckboxProps } from './Checkbox';
 export { Card, type CardProps } from './Card';
 export { Badge, type BadgeProps } from './Badge';
+export { Avatar, AvatarGroup, type AvatarProps, type AvatarGroupProps } from './Avatar';
 export { LunaProvider, createTheme, useTheme, type LunaTheme } from './theme';

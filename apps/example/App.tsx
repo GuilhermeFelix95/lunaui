@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
-import { Badge, Button, Card, Checkbox, Input, LunaProvider, Switch, createTheme } from 'lunaui';
+import { Avatar, AvatarGroup, Badge, Button, Card, Checkbox, Input, LunaProvider, Switch, createTheme } from 'lunaui';
 
 export default function App() {
   const [items, setItems] = useState([true, false]);
@@ -61,6 +61,18 @@ export default function App() {
             <View style={{ width: 48, height: 48, borderRadius: 16, borderWidth: 2, borderColor: '#ccc' }} />
           </Badge>
         </View>
+        <View style={styles.row}>
+          <Avatar name="Marina Alves" status="online" />
+          <Avatar name="João Pedro" variant="soft" status="away" size="lg" />
+          <Avatar name="Rita Castro" status="offline" size="sm" />
+        </View>
+        <AvatarGroup max={3}>
+          <Avatar name="Marina Alves" />
+          <Avatar name="João Pedro" variant="soft" />
+          <Avatar name="Rita Castro" />
+          <Avatar name="Caio Lima" />
+          <Avatar name="Ana Souza" />
+        </AvatarGroup>
         <Button fullWidth size="lg" color="#f43f5e">Criar conta</Button>
         <StatusBar style="auto" />
       </ScrollView>

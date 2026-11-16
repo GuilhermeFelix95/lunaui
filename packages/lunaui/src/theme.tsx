@@ -12,6 +12,9 @@ export type LunaTheme = {
   error: string;
   fieldBg: string;
   fieldLine: string;
+  online: string;
+  away: string;
+  offline: string;
   boxLine: string;
   cardBg: string;
   cardLine: string;
@@ -51,6 +54,9 @@ export function useTheme(): LunaTheme {
     cardBg: dark ? '#13112a' : '#ffffff',
     cardLine: dark ? '#2f2a58' : '#d9d5ee',
     cardEdge: dark ? '#1d1a3a' : '#cfcae6',
+    online: dark ? '#3ddc9d' : '#12a373',
+    away: dark ? '#ffb23d' : '#d98a06',
+    offline: dark ? '#8f8bb0' : '#7d7a99',
     boxLine: dark ? '#4a4580' : '#bdb8d8',
     trackOff: dark ? '#2c2850' : '#d8d4ec',
     trackOffEdge: dark ? '#1d1a3a' : '#bdb8d8',
