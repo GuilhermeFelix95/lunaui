@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { BottomSheet, Button, Checkbox, Header, Input, List, LunaProvider, Modal, Navigation, Select, Switch, Tabs, Text, ToastHost, toast } from '..';
+import { Accordion, Alert, BottomSheet, Button, Checkbox, Chip, Divider, Header, Input, List, LunaProvider, Modal, Navigation, Progress, RadioGroup, Rating, SegmentedControl, Select, Skeleton, Slider, Switch, Tabs, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -293,5 +293,119 @@ describe('Navigation', () => {
     expect(screen.queryByText('Avisos')).toBeNull();
     await fireEvent.press(screen.getByRole('tab', { name: 'Avisos, 3 novos' }));
     expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+});
+
+describe('Fase 4', () => {
+  it('RadioGroup troca a opção e ignora a desabilitada', async () => {
+    const onValueChange = jest.fn();
+    await render(
+      <RadioGroup value="a" onValueChange={onValueChange} label="Plano">
+        <RadioGroup.Radio value="a" label="Gratuito" />
+        <RadioGroup.Radio value="b" label="Pro" />
+        <RadioGroup.Radio value="c" label="Empresa" disabled />
+      </RadioGroup>,
+    );
+    expect(screen.getByRole('radio', { name: 'Gratuito' })).toBeChecked();
+    await fireEvent.press(screen.getByRole('radio', { name: 'Pro' }));
+    await fireEvent.press(screen.getByRole('radio', { name: 'Empresa' }));
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  it('Slider expõe o valor e responde às ações de acessibilidade', async () => {
+    const onValueChange = jest.fn();
+    await render(<Slider value={40} onValueChange={onValueChange} label="Volume" step={5} />);
+    const s = screen.getByRole('adjustable', { name: 'Volume' });
+    expect(s).toHaveAccessibilityValue({ min: 0, max: 100, now: 40 });
+    await fireEvent(s, 'accessibilityAction', { nativeEvent: { actionName: 'increment' } });
+    expect(onValueChange).toHaveBeenCalledWith(45);
+  });
+
+  it('Progress informa o valor, limitado de 0 a 100', async () => {
+    await render(<Progress value={140} label="Envio" />);
+    expect(screen.getByRole('progressbar', { name: 'Envio' })).toHaveAccessibilityValue({ min: 0, max: 100, now: 100 });
+  });
+
+  it('Skeleton.Text mostra um único estado de carregamento', async () => {
+    await render(<Skeleton.Text lines={3} />);
+    expect(screen.getByRole('progressbar', { name: 'Carregando' })).toBeOnTheScreen();
+  });
+
+  it('Divider com rótulo mostra o texto', async () => {
+    await render(<Divider label="ou" />);
+    expect(screen.getByText('ou')).toBeOnTheScreen();
+  });
+
+  it('Chip alterna, mostra o contador e remove', async () => {
+    const onPress = jest.fn();
+    const onRemove = jest.fn();
+    await render(
+      <>
+        <Chip label="Cheia" count={2} selected={false} onPress={onPress} />
+        <Chip label="Eclipse" onRemove={onRemove} />
+      </>,
+    );
+    await fireEvent.press(screen.getByRole('togglebutton', { name: 'Cheia, 2' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Remover Eclipse' }));
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(onRemove).toHaveBeenCalledTimes(1);
+  });
+
+  it('SegmentedControl marca a opção e ignora a desabilitada', async () => {
+    const onValueChange = jest.fn();
+    await render(
+      <SegmentedControl
+        value="a"
+        onValueChange={onValueChange}
+        options={[
+          { value: 'a', label: 'Dia' },
+          { value: 'b', label: 'Semana' },
+          { value: 'c', label: 'Auto', disabled: true },
+        ]}
+      />,
+    );
+    expect(screen.getByRole('radio', { name: 'Dia' })).toBeChecked();
+    await fireEvent.press(screen.getByRole('radio', { name: 'Semana' }));
+    await fireEvent.press(screen.getByRole('radio', { name: 'Auto' }));
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+    expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  it('Accordion abre um por vez no modo single', async () => {
+    await render(
+      <Accordion type="single" defaultValue="a">
+        <Accordion.Item value="a" title="Primeiro"><Text>Corpo A</Text></Accordion.Item>
+        <Accordion.Item value="b" title="Segundo"><Text>Corpo B</Text></Accordion.Item>
+      </Accordion>,
+    );
+    expect(screen.getByText('Corpo A')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Segundo' }));
+    expect(screen.getByText('Corpo B')).toBeOnTheScreen();
+    expect(screen.queryByText('Corpo A')).toBeNull();
+  });
+
+  it('Alert mostra título, aciona a ação e fecha', async () => {
+    const onClose = jest.fn();
+    const onAction = jest.fn();
+    await render(
+      <Alert tone="warning" title="Quase sem espaço" action={{ label: 'Gerenciar', onPress: onAction }} onClose={onClose}>
+        Você usou 90%.
+      </Alert>,
+    );
+    expect(screen.getByText('Quase sem espaço')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('button', { name: 'Gerenciar' }));
+    await fireEvent.press(screen.getByRole('button', { name: 'Fechar aviso' }));
+    expect(onAction).toHaveBeenCalledTimes(1);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('Rating avalia ao tocar e lê a nota quando somente leitura', async () => {
+    const onValueChange = jest.fn();
+    const { rerender } = await render(<Rating value={2} onValueChange={onValueChange} />);
+    await fireEvent.press(screen.getByRole('radio', { name: '4 de 5' }));
+    expect(onValueChange).toHaveBeenCalledWith(4);
+    await rerender(<Rating value={3.5} readOnly />);
+    expect(screen.getByRole('image', { name: 'Nota 3,5 de 5' })).toBeOnTheScreen();
   });
 });
