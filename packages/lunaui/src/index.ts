@@ -10,4 +10,5 @@ export { Text, type TextProps } from './Text';
 export { Modal, type ModalProps, type ModalAction } from './Modal';
 export { ToastHost, type ToastHostProps } from './Toast';
 export { toast, useToast, type ToastOptions, type ToastTone } from './toastStore';
+export { Select, type SelectProps, type SelectOption } from './Select';
 export { LunaProvider, createTheme, useTheme, type LunaTheme } from './theme';

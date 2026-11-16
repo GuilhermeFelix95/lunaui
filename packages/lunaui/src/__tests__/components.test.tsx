@@ -1,5 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react-native';
-import { Button, Checkbox, Input, LunaProvider, Modal, Switch, Text, ToastHost, toast } from '..';
+import { Button, Checkbox, Input, LunaProvider, Modal, Select, Switch, Text, ToastHost, toast } from '..';
 
 describe('Button', () => {
   it('chama onPress ao tocar', async () => {
@@ -141,5 +141,39 @@ describe('Toast', () => {
     });
     expect(screen.queryByText('d')).toBeNull();
     expect(screen.getByText('a')).toBeOnTheScreen();
+  });
+});
+
+describe('Select', () => {
+  const options = [
+    { value: 'a', label: 'Lua nova' },
+    { value: 'b', label: 'Lua cheia' },
+    { value: 'c', label: 'Eclipse', disabled: true },
+  ];
+
+  it('abre a lista, escolhe uma opção e fecha (seleção única)', async () => {
+    const onValueChange = jest.fn();
+    await render(<Select label="Fase" placeholder="Escolha" options={options} value={undefined} onValueChange={onValueChange} />);
+    expect(screen.getByText('Escolha')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('combobox', { name: 'Fase' }));
+    await fireEvent.press(screen.getByRole('radio', { name: 'Lua cheia' }));
+    expect(onValueChange).toHaveBeenCalledWith('b');
+  });
+
+  it('ignora opção desabilitada', async () => {
+    const onValueChange = jest.fn();
+    await render(<Select label="Fase" options={options} onValueChange={onValueChange} />);
+    await fireEvent.press(screen.getByRole('combobox', { name: 'Fase' }));
+    await fireEvent.press(screen.getByRole('radio', { name: 'Eclipse' }));
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
+  it('seleção múltipla acumula valores e resume o campo', async () => {
+    const onValueChange = jest.fn();
+    await render(<Select multiple label="Fases" options={options} value={['a', 'b']} onValueChange={onValueChange} />);
+    expect(screen.getByText('2 selecionados')).toBeOnTheScreen();
+    await fireEvent.press(screen.getByRole('combobox', { name: 'Fases' }));
+    await fireEvent.press(screen.getByRole('checkbox', { name: 'Lua nova' }));
+    expect(onValueChange).toHaveBeenCalledWith(['b']);
   });
 });
