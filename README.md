@@ -30,7 +30,9 @@ A cor não é fixa: você define uma cor-base no tema (ou por componente com a p
 ```sh
 pnpm install
 pnpm typecheck
+pnpm test
 pnpm --filter example start
+pnpm --filter example storybook   # catálogo dos componentes no celular
 ```
 
 Estrutura: `packages/lunaui` (a biblioteca) e `apps/example` (app Expo de exemplo).

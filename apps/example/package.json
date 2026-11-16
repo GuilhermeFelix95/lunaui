@@ -3,11 +3,24 @@
   "version": "1.0.0",
   "main": "index.ts",
   "dependencies": {
+    "@gorhom/bottom-sheet": "^5.2.14",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "@storybook/addon-ondevice-actions": "^10.7.1",
+    "@storybook/addon-ondevice-controls": "^10.7.1",
+    "@storybook/react-native": "^10.7.1",
+    "cross-env": "^10.1.0",
     "expo": "~58.0.25",
     "expo-status-bar": "~58.0.5",
     "lunaui": "workspace:*",
     "react": "19.3.0",
-    "react-native": "0.88.1"
+    "react-dom": "^19.3.1",
+    "react-native": "0.88.1",
+    "react-native-gesture-handler": "~3.3.0",
+    "react-native-reanimated": "4.7.1",
+    "react-native-safe-area-context": "~5.11.1",
+    "react-native-svg": "15.16.0",
+    "react-native-worklets": "0.13.0",
+    "storybook": "^10.6.7"
   },
   "devDependencies": {
     "@types/react": "~19.3.0",
@@ -18,7 +31,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "storybook": "cross-env STORYBOOK_ENABLED=true expo start"
   },
   "private": true
 }
