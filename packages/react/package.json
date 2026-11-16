@@ -6,10 +6,38 @@
   "type": "module",
   "main": "src/index.tsx",
   "types": "src/index.tsx",
-  "files": ["src", "!src/**/*.test.tsx", "README.md", "LICENSE"],
-  "repository": { "type": "git", "url": "git+https://github.com/GuilhermeFelix95/lunaui.git", "directory": "packages/react" },
-  "scripts": { "typecheck": "tsc -p .", "test": "vitest run" },
-  "dependencies": { "@lunakit/css": "workspace:*", "@lunakit/tokens": "workspace:*" },
-  "peerDependencies": { "react": ">=18", "react-dom": ">=18" },
-  "devDependencies": { "@types/react": "~19.1.0", "@types/react-dom": "~19.1.0", "react": "19.1.0", "react-dom": "19.1.0", "typescript": "~5.9.2", "vitest": "^3.2.4" }
+  "files": [
+    "src",
+    "!src/**/*.test.tsx",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeFelix95/lunaui.git",
+    "directory": "packages/react"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@lunakit/css": "workspace:*",
+    "@lunakit/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.10",
+    "@types/react": "~19.1.0",
+    "@types/react-dom": "~19.1.0",
+    "jsdom": "^31.0.1",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "typescript": "~5.9.2",
+    "vitest": "^3.2.4"
+  }
 }
